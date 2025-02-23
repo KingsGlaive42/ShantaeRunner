@@ -9,6 +9,7 @@ ASSET_MANAGER.queueDownload("./ShantaeJump.png");
 ASSET_MANAGER.queueDownload("./ShantaeFall.png");
 ASSET_MANAGER.queueDownload("./Assets.png");
 ASSET_MANAGER.queueDownload("./Background.png");
+ASSET_MANAGER.queueDownload("./ShantaeLogo.png");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");

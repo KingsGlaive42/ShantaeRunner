@@ -1,8 +1,33 @@
+class Logo {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y });
+        this.removeFromWorld = false;
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./ShantaeLogo.png");
+    };
+
+    update() {
+
+    };
+
+    draw(ctx) {
+        ctx.drawImage(
+            this.spritesheet,       // The spritesheet
+            0, 0,                  // Source x, y (top-left corner of the tile in the spritesheet)
+            688, 401,// Source width and height (size of the tile)
+            this.x, // Destination x (shifted by i * TILE_WIDTH to make a row of tiles)
+            this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
+            688, 401,  // Destination width and height (size of the tile on canvas)
+        );
+    };
+}
+
 const GrassWidth = 15;
 
 class GrassFloor {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
+        this.removeFromWorld = false;
 
         this.spritesheet = ASSET_MANAGER.getAsset("./Assets.png");
         this.scale = 5;
@@ -36,6 +61,7 @@ const WaterWidth = 15;
 class Water {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
+        this.removeFromWorld = false;
 
         this.spritesheet = ASSET_MANAGER.getAsset("./Assets.png");
         this.scale = 5;
@@ -67,7 +93,9 @@ const AirWidth = 15;
 
 class Air {
     constructor(game, x, y) {
+        this.game = game;
         Object.assign(this, { game, x, y });
+        this.removeFromWorld = false;
 
         this.spritesheet = ASSET_MANAGER.getAsset("./Assets.png");
         this.scale = 5;
@@ -100,6 +128,7 @@ const DirtWidth = 15;
 class Dirt {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
+        this.removeFromWorld = false;
 
         this.spritesheet = ASSET_MANAGER.getAsset("./Assets.png");
         this.scale = 5;

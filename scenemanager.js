@@ -12,18 +12,24 @@ class SceneManager {
         });
     };
 
-    loadLevel(level, x, y, transition, title) {
+    loadLevel(level, transition, title) {
 
         this.title = title;
         this.level = level;
         this.clearEntities();
-        this.x = 0;
 
         this.background = new Background(this.game);
         this.shantae = new shantae(this.game)
         this.game.addEntity(this);
         this.timer = new TimerDisplay(this.game);
         this.game.addEntity(this.timer);
+
+        if (this.level.logo) {
+            for (let i = 0; i < this.level.logo.length; i++) {
+                let logo = level.logo[i];
+                this.game.addEntity(new Logo(this.game, logo.x, logo.y));
+            }
+        }
 
         if (this.level.GrassFloor) {
             for (let i = 0; i < this.level.GrassFloor.length; i++) {
@@ -50,6 +56,7 @@ class SceneManager {
                 }
             }
         }
+
         if (this.level.Air) {
             for (let i = 0; i < this.level.Air.length; i++) {
                 let air = level.Air[i];
@@ -64,9 +71,24 @@ class SceneManager {
 
     // Update the current scene
     update() {
+        if (this.shantae.dead === true) {
+            //this.game.end();
+            location.reload(true);
+        }
+
+        if (this.game.entities.some(entity => entity instanceof Logo)) {
+            this.scrollSpeed = 0;
+            this.logo = this.game.entities.find(entity=> entity instanceof Logo);
+            if (this.game.keys[" "]) {
+                this.logo.removeFromWorld = true;
+            }
+        } else {
+            this.scrollSpeed = (500 * this.game.clockTick) + this.timer.timeElapsed;
+        }
+        let that = this;
         this.game.entities.forEach(entity => {
             if (!(entity instanceof shantae || entity instanceof TimerDisplay)) {
-                entity.x -= this.scrollSpeed / (15 * 5); // Adjusting for scaling
+                entity.x -= that.scrollSpeed / (15 * 5); // Adjusting for scaling
             }
         });
     }

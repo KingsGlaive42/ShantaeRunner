@@ -7,6 +7,10 @@ class TimerDisplay {
     }
 
     update() {
+        if (this.game.entities.some(entity => entity instanceof Logo)) {
+            this.startTime = Date.now();
+            return;
+        }
         // Update the elapsed time based on the current time and start time
         this.timeElapsed = Math.floor((Date.now() - this.startTime) / 1000); // Time in seconds
     }

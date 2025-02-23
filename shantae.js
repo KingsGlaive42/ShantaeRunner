@@ -2,7 +2,7 @@ class shantae {
     constructor(game) {
         this.game = game;
         this.x = 50;
-        this.y = 492;
+        this.y = -300;
         this.speed = 20;
         this.isOffset = false;
         this.dead = false;
@@ -41,7 +41,7 @@ class shantae {
     updateBB() {
         this.lastBB = this.BB;
         if (this.currentState === 'Charge') {
-            this.BB = new BoundingBox(this.x + 75, this.y + 10, 110, 98);
+            this.BB = new BoundingBox(this.x + 75, this.y + 10, 70, 98);
         } else if (this.currentState === 'Jump') {
             this.BB = new BoundingBox(this.x + 15, this.y + 9, 65, 120);
         } else if (this.currentState === 'JumpTuck') {
@@ -60,13 +60,16 @@ class shantae {
     }
 
     update() {
+        if (this.game.entities.some(entity => entity instanceof Logo)) {
+            return;
+        }
         if (this.y > 800) {
             this.dead = true;
         }
         if (this.dead === true) {
-            this.game.end();
             return;
         }
+
         if (this.game.keys['ArrowUp'] && !(this.currentState === 'Jump'
                 || this.currentState === 'JumpTuck' || this.currentState === 'JumpFall'
                 || this.currentState === 'GlideStart' || this.currentState === 'Glide'
@@ -128,17 +131,15 @@ class shantae {
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (entity instanceof Water || entity instanceof Air && (that.currentState === 'Charge' || that.currentState === 'Slide')) {
-                    if (that.BB.left > entity.BB.left - 10) {
-                        that.setState('JumpFall');
-                    }
+                    that.setState('JumpFall');
                 }
                 if (entity instanceof GrassFloor && that.currentState !== 'Charge'
                     && that.currentState !== 'Jump' && that.currentState !== 'Slide') {
-                    that.y = 493
+                    that.y = entity.y - 107;
                     that.setState('Charge');
                 }
                 if (entity instanceof Dirt) {
-                    that.game.end();
+                    that.dead = true;
                 }
             }
         });
