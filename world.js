@@ -47,7 +47,9 @@ class GrassFloor {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        this.BB.draw(ctx);
+        if (this.BB) {
+            this.BB.draw(ctx);
+        }
     };
 
     updateBB() {
@@ -80,7 +82,9 @@ class Water {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        this.BB.draw(ctx);
+        if (this.BB) {
+            this.BB.draw(ctx);
+        }
     };
 
     updateBB() {
@@ -114,11 +118,12 @@ class Air {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        this.BB.draw(ctx);
+        if (this.BB) {
+            this.BB.draw(ctx);
+        }
     };
 
     updateBB() {
-        this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x * (AirWidth * this.scale), this.y, 15 * this.scale, 15 * this.scale);
     };
 }
@@ -139,7 +144,6 @@ class Dirt {
     };
 
     draw(ctx) {
-        //ctx.drawImage(this.spritesheet, 33, 0, 15, 15, this.x, 100, 50, 50);
         ctx.drawImage(
             this.spritesheet,       // The spritesheet
             48, 16,                  // Source x, y (top-left corner of the tile in the spritesheet)
@@ -148,11 +152,48 @@ class Dirt {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        this.BB.draw(ctx);
+        if (this.BB) {
+            this.BB.draw(ctx);
+        }
     };
 
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x * (DirtWidth * this.scale), this.y, 15 * this.scale, 15 * this.scale);
+    };
+}
+
+const WinWidth = 15;
+
+class Win {
+    constructor(game, x, y) {
+        this.game = game;
+        Object.assign(this, { game, x, y });
+        this.removeFromWorld = false;
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./Assets.png");
+        this.scale = 5;
+    };
+
+    update() {
+        this.updateBB();
+    };
+
+    draw(ctx) {
+        ctx.drawImage(
+            this.spritesheet,       // The spritesheet
+            0, 0,                  // Source x, y (top-left corner of the tile in the spritesheet)
+            15, 15,// Source width and height (size of the tile)
+            this.x * (WinWidth * this.scale), // Destination x (shifted by i * TILE_WIDTH to make a row of tiles)
+            this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
+            15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
+        );
+        if (this.BB) {
+            this.BB.draw(ctx);
+        }
+    };
+
+    updateBB() {
+        this.BB = new BoundingBox(this.x * (WinWidth * this.scale), this.y, 15 * this.scale, 15 * this.scale);
     };
 }

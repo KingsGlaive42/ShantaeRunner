@@ -6,6 +6,7 @@ class shantae {
         this.speed = 20;
         this.isOffset = false;
         this.dead = false;
+        this.win = false;
         this.updateBB();
 
         this.animations = {
@@ -140,6 +141,9 @@ class shantae {
                 }
                 if (entity instanceof Dirt) {
                     that.dead = true;
+                }
+                if (entity instanceof Win) {
+                    that.win = true;
                 }
             }
         });

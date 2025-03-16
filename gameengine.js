@@ -29,11 +29,8 @@ class GameEngine {
     };
 
     start() {
-        this.running = true;
         const gameLoop = () => {
-            if (!this.end) {
-                this.loop();
-            }
+            this.loop();
             requestAnimFrame(gameLoop, this.ctx.canvas);
         };
         gameLoop();
@@ -95,7 +92,6 @@ class GameEngine {
 
     update() {
         let entitiesCount = this.entities.length;
-
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
 
@@ -106,6 +102,8 @@ class GameEngine {
 
         for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
+                if (this.entities[i] instanceof SceneManager) {
+                }
                 this.entities.splice(i, 1);
             }
         }
