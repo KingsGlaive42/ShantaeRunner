@@ -47,9 +47,6 @@ class GrassFloor {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        if (this.BB) {
-            this.BB.draw(ctx);
-        }
     };
 
     updateBB() {
@@ -82,9 +79,6 @@ class Water {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        if (this.BB) {
-            this.BB.draw(ctx);
-        }
     };
 
     updateBB() {
@@ -118,9 +112,6 @@ class Air {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        if (this.BB) {
-            this.BB.draw(ctx);
-        }
     };
 
     updateBB() {
@@ -152,9 +143,6 @@ class Dirt {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        if (this.BB) {
-            this.BB.draw(ctx);
-        }
     };
 
     updateBB() {
@@ -188,9 +176,6 @@ class Win {
             this.y,                    // Destination y (fixed y-coordinate, as you're drawing a floor)
             15 * this.scale, 15 * this.scale // Destination width and height (size of the tile on canvas)
         );
-        if (this.BB) {
-            this.BB.draw(ctx);
-        }
     };
 
     updateBB() {

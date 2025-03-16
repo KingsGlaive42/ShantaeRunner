@@ -152,6 +152,5 @@ class shantae {
 
     draw(ctx) {
         this.animations[this.currentState].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
-        this.BB.draw(ctx)
     }
 }
